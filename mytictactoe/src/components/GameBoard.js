@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
-function GameBoard({ onGameOver }) {
+function GameBoard({ onGameOver, resetTrigger, currentPlayer, updateCurrentPlayer }) {
   const [board, setBoard] = useState(Array(9).fill(null));
-  const [currentPlayer, setCurrentPlayer] = useState('O');
 
   const handleClick = (index) => {
     if (board[index] || calculateWinner(board)) return;
@@ -15,7 +14,7 @@ function GameBoard({ onGameOver }) {
     if (winner) {
       onGameOver(winner);
     } else {
-      setCurrentPlayer(currentPlayer === 'O' ? 'X' : 'O');
+      updateCurrentPlayer(currentPlayer === 'O' ? 'X' : 'O');
     }
   };
 
@@ -34,11 +33,19 @@ function GameBoard({ onGameOver }) {
     return null;
   };
 
+  useEffect(() => {
+    setBoard(Array(9).fill(null));
+  }, [resetTrigger]);
+
   return (
-    <div className="game-board">
+    <div className="board">
       {board.map((value, index) => (
-        <button key={index} onClick={() => handleClick(index)}>
-          {value}
+        <button 
+          key={index} 
+          className={`cell ${value === 'O' ? 'circle' : value === 'X' ? 'cross' : ''}`} 
+          onClick={() => handleClick(index)}
+        >
+          {/* Убираем текст и `<img>` для кнопок */}
         </button>
       ))}
     </div>

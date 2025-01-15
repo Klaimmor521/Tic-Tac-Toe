@@ -12,7 +12,7 @@ function Timer({ reset }) {
     setTime(0);
   }, [reset]);
 
-  return <p>Таймер: {time} сек</p>;
+  return <p className="timer">Таймер: {time} сек</p>;
 }
 
 export default Timer;

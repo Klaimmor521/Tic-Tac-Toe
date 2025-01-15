@@ -13,12 +13,22 @@ function App() {
     setReset((prev) => !prev);
   };
 
+  const handleReset = () => {
+    setReset((prev) => !prev);
+    setCurrentPlayer('O');
+  };
+
   return (
-    <div className="app">
+    <div className="app container">
       <Header currentPlayer={currentPlayer} />
       <Timer reset={reset} />
-      <GameBoard onGameOver={handleGameOver} />
-      <Footer onReset={() => setReset((prev) => !prev)} />
+      <GameBoard
+        onGameOver={handleGameOver}
+        resetTrigger={reset}
+        currentPlayer={currentPlayer}
+        updateCurrentPlayer={setCurrentPlayer}
+      />
+      <Footer onReset={handleReset} />
     </div>
   );
 }
