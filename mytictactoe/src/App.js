@@ -3,6 +3,7 @@ import Header from './components/Header';
 import GameBoard from './components/GameBoard';
 import Timer from './components/Timer';
 import Footer from './components/Footer';
+import './styles.css';
 
 function App() {
   const [currentPlayer, setCurrentPlayer] = useState('O');
