@@ -1,15 +1,25 @@
 import React, { useState, useEffect } from 'react';
 
-function Timer({ reset }) {
+function Timer({ reset, isGameOver }) {
   const [time, setTime] = useState(0);
 
   useEffect(() => {
-    const interval = setInterval(() => setTime((prev) => prev + 1), 1000);
-    return () => clearInterval(interval);
-  }, []);
+    if (isGameOver) {
+      setTime(0); // Сбрасываем таймер при завершении игры
+      return; // Не запускаем интервал
+    }
+
+    const interval = setInterval(() => {
+      setTime((prev) => prev + 1);
+    }, 1000);
+
+    return () => clearInterval(interval); // Очищаем интервал
+  }, [isGameOver]);
 
   useEffect(() => {
-    setTime(0);
+    if (reset) {
+      setTime(0); // Сбрасываем таймер при сбросе игры
+    }
   }, [reset]);
 
   const formatTime = (time) => {

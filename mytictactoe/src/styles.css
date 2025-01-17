@@ -1,11 +1,14 @@
-.container 
+.container
 {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
+  padding-top: 20px;
   min-height: 100vh;
   background-color: #F6F6F6;
+  gap: 20px;
+  position: static;
 }
 
 .title 
@@ -19,6 +22,7 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 4px;
+  margin-top: 25px;
 }
 
 .timer
@@ -30,11 +34,11 @@
   justify-content: center;
   align-items: center;
   font-size: 2rem;
-  color: black;
+  color: #373745;
   position: relative;
-  top: 10px;
   padding: 15px;
   border: none;
+  top: 60px;
 }
 
 .current-player
@@ -49,7 +53,7 @@
   font-size: 2rem;
   color: #ffffff;
   position: relative;
-  top: 850px;
+  margin-top: 20px;
 }
 
 .cell 
@@ -83,19 +87,6 @@
   background-size: 175px;
 }
 
-.reset 
-{
-  margin-top: 20px;
-  padding: 10px 20px;
-  font-size: 1rem;
-  cursor: pointer;
-  background-image: url('./assets/Button.png');
-  background-size: cover;
-  border-radius: 50px;
-  background-position: center;
-  border: none;
-}
-
 /* Затенение фона */
 .modal-overlay 
 {
@@ -112,7 +103,8 @@
 }
 
 /* Модальное окно */
-.modal {
+.modal 
+{
   background: white;
   border-radius: 10px;
   padding: 20px;
@@ -127,7 +119,8 @@
 }
 
 /* Картинка трофея */
-.modal-trophy {
+.modal-trophy 
+{
   background-image: url('./assets/trophy.png');
   background-size: contain; /* Убедимся, что картинка не обрезается */
   background-repeat: no-repeat;
@@ -141,49 +134,146 @@
 }
 
 /* Заголовок */
-.modal h2 {
+.modal h2 
+{
   margin: 0;
   font-size: 1.8rem; /* Чуть больше для крупного окна */
-  color: #333;
+  color: #373745;
   margin-bottom: 20px; /* Отступ от картинки */
 }
 
 /* Кнопки */
-.modal-buttons {
+.modal-buttons 
+{
   display: flex;
+  flex-direction: column;
   justify-content: space-around;
   margin-top: 20px;
+  gap: 12px;
   width: 100%; /* Занимаем всю ширину модального окна */
 }
 
-.modal-buttons button {
+.modal-buttons button 
+{
   padding: 10px 20px;
   border: none;
-  border-radius: 5px;
+  border-radius: 10px;
   cursor: pointer;
   font-size: 1rem;
   flex: 1; /* Равномерное распределение кнопок */
   margin: 0 5px; /* Расстояние между кнопками */
 }
 
-.modal-new-game {
+.modal-new-game 
+{
   background-color: #60C2AA;
   color: white;
 }
 
-.modal-exit {
+.modal-exit 
+{
   background-color: #f5f5f5;
-  color: #333;
+  color: #373745;
 }
 
-/* Победная клетка с крестиком */
 .winning-x 
 {
   background-color: #CFEDE6;
 }
 
-/* Победная клетка с ноликом */
 .winning-o 
 {
   background-color: #F3BBD0;
+}
+
+.navigation 
+{
+  background-color: #ffffff; /* Цвет фона */
+  padding: 10px 10px; /* Внутренние отступы */
+  display: flex; /* Гибкий контейнер */
+  justify-content:space-between; /* Распределение элементов: слева логотип, справа меню */
+  align-items: center; /* Центрирование элементов по вертикали */
+  width: 100%; /* Занимает всю ширину страницы */
+  position: fixed; /* Фиксируем навигацию сверху */
+  top: 0; /* Привязываем к верхнему краю */
+  left: 0; /* Привязываем к левому краю */
+  z-index: 1000; /* Навигация поверх других элементов */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Добавляем тень */
+}
+
+.nav-list {
+  list-style: none;
+  display: flex;
+  justify-content: center; /* Выровнять элементы списка по центру */
+  align-items: center; /* Выровнять элементы по вертикали */
+  gap: 20px; /* Расстояние между элементами */
+  margin: 0;
+  padding: 0;
+  flex: 1; /* Занимает всё доступное пространство */
+}
+
+.nav-list li 
+{
+  font-size: 1.4rem;
+}
+
+.nav-list a 
+{
+  text-decoration: none; /* Убираем подчеркивание */
+  color: #373745;
+  font-weight: bold; /* Чтобы текст выглядел выразительнее */
+  padding: 10px 10px; /* Добавляем отступы для визуальной читаемости */
+  display: inline-block; /* Позволяет обернуть текст в "кнопку" */
+  transition: all 0.3s ease; /* Плавный переход всех эффектов */
+  border-radius: 33px; /* Делаем текст кругом при наведении */
+}
+
+.nav-list a:hover 
+{
+  background-color: #60C2AA; 
+  color: white; /* Белый цвет текста */
+  border: none;
+}
+
+.logo 
+{
+  background-image: url('./assets/logo.png'); /* Укажите путь к вашему изображению */
+  background-size: contain; /* Убедитесь, что изображение сохраняет свои пропорции */
+  background-repeat: no-repeat; /* Избегаем повторения */
+  background-position: center; /* Центрируем изображение */
+  height: 60px; /* Задайте высоту логотипа */
+  width: 80px; /* Задайте ширину логотипа */
+  margin-right: 20px; /* Добавьте отступ от остальных элементов */
+}
+
+.menu
+{
+  display: flex;
+  justify-content: center; /* Выровнять элементы списка по центру */
+  align-items: center; /* Выровнять элементы по вертикали */
+  color: #373745;
+}
+
+.start-button
+{
+  padding: 10px 20px;
+  font-size: 1.2rem;
+  color: white;
+  background-color: #60C2AA; /* Цвет кнопки */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.start-button:hover 
+{
+  background-color: #4fa590; /* Цвет кнопки при наведении */
+  transform: scale(1.05); /* Легкое увеличение кнопки */
+}
+
+.start-button:active 
+{
+  background-color: #3d8774; /* Цвет кнопки при нажатии */
+  transform: scale(0.95); /* Уменьшение кнопки при нажатии */
 }
