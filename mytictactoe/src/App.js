@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import Header from './components/Header';
 import GameBoard from './components/GameBoard';
 import Menu from './components/Menu.js';
@@ -10,8 +10,8 @@ function App()
   return (
     <Router>
       <div className="app container">
-        {/* Шапка с навигацией */}
         <nav className="navigation">
+            <div className="logo"></div> {/* Логотип */}
           <ul className="nav-list">
             <li>
               <Link to="/game">Игровое поле</Link>
@@ -21,7 +21,6 @@ function App()
             </li>
           </ul>
         </nav>
-        {/* Основное содержимое */}
         <Routes>
           <Route path="/" element={<Menu />} />
           <Route path="/game" element={<Game />} />
@@ -38,18 +37,6 @@ function Game()
 
   return (
     <>
-    <nav className="navigation">
-  <div className="logo"></div> {/* Логотип */}
-  <ul className="nav-list">
-    <li>
-      <Link to="/game">Игровое поле</Link>
-    </li>
-    <li>
-      <Link to="/">Меню</Link>
-    </li>
-  </ul>
-</nav>
-      {/* Компоненты текущей игры */}
       <GameBoard
         resetTrigger={reset}
         currentPlayer={currentPlayer}

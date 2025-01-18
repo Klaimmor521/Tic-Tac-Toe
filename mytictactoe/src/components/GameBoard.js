@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import WinnerModal from './WinnerModal';
 import Timer from './Timer';
 
-function GameBoard({ resetTrigger, currentPlayer, updateCurrentPlayer }) {
+function GameBoard({ resetTrigger, currentPlayer, updateCurrentPlayer }) 
+{
   const [board, setBoard] = useState(Array(9).fill(null));
   const [isGameOver, setIsGameOver] = useState(false);
   const [winner, setWinner] = useState(null);

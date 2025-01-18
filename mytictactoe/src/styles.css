@@ -170,7 +170,7 @@
   color: white;
 }
 
-.modal-exit 
+.modal-exit
 {
   background-color: #f5f5f5;
   color: #373745;
@@ -246,16 +246,33 @@
   margin-right: 20px; /* Добавьте отступ от остальных элементов */
 }
 
-.menu
+.menu 
 {
   display: flex;
-  justify-content: center; /* Выровнять элементы списка по центру */
-  align-items: center; /* Выровнять элементы по вертикали */
-  color: #373745;
+  align-items: center; /* Центрировать элементы по горизонтали */
+  height: 100vh; /* Занимать всю высоту экрана */
+  padding: 20px; /* Отступы внутри меню */
+  text-align: center;
+  justify-content: center;
+  flex-direction: column;
 }
 
-.start-button
+.menu-title 
 {
+  font-size: 2.5rem; /* Увеличенный текст заголовка */
+  color: #373745; /* Цвет текста */
+  margin: 0; /* Убрать отступы вокруг заголовка */
+  margin-bottom: 25px;
+}
+
+.menu-footer 
+{
+  width: 100%; /* Растянуть на всю ширину */
+  display: flex;
+  justify-content: center; /* Центрировать кнопку */
+}
+
+.start-button {
   padding: 10px 20px;
   font-size: 1.2rem;
   color: white;
@@ -266,14 +283,48 @@
   transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-.start-button:hover 
+@media (max-width: 768px) 
 {
-  background-color: #4fa590; /* Цвет кнопки при наведении */
-  transform: scale(1.05); /* Легкое увеличение кнопки */
-}
+  .board 
+  {
+    grid-template-columns: repeat(3, 1fr); /* Сетка поля */
+    margin: 0 auto; /* Центруем */
+    margin-top: 25px;
+  }
 
-.start-button:active 
-{
-  background-color: #3d8774; /* Цвет кнопки при нажатии */
-  transform: scale(0.95); /* Уменьшение кнопки при нажатии */
+  .cell 
+  {
+    width: 120px;
+    height: 120px;
+  }
+
+  .navigation 
+  {
+    flex-direction: column; /* Навигация в колонку */
+    padding: 10px;
+  }
+
+  .start-button 
+  {
+    font-size: 1rem; /* Меньший текст кнопки */
+    padding: 8px 12px;
+  }
+
+  .cell.circle 
+  {
+    background-image: url('./assets/zero.png');
+    background-size: cover;
+    background-position: center;
+    background-size: 100px;
+    background-repeat: no-repeat;
+  }
+
+  .cell.cross 
+  {
+    background-image: url('./assets/cross.png');
+    background-size: cover;
+    background-position: center;
+    background-size: 103px;
+    background-repeat: no-repeat;
+  }
 }

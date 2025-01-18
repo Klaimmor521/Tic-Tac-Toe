@@ -1,7 +1,9 @@
 import React from "react";
+import { useNavigate } from 'react-router-dom';
 
-function WinnerModal({ winner, isDraw, onClose, onNewGame }) 
+function WinnerModal({ winner, isDraw, onNewGame }) 
 {
+  const navigate = useNavigate();
   if (!winner && !isDraw) return null;
 
   return (
@@ -16,8 +18,8 @@ function WinnerModal({ winner, isDraw, onClose, onNewGame })
           </>
         )}
         <div className="modal-buttons">
-          <button onClick={onNewGame} className="modal-new-game">Новая игра</button>
-          <button onClick={onClose} className="modal-exit">Выйти в меню</button>
+          <button onClick={onNewGame} className="modal-new-game">Сыграть ещё раз</button>
+          <button onClick={() => navigate('/')} className="modal-exit">Выйти в меню</button>
         </div>
       </div>
     </div>
