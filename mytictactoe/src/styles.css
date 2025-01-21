@@ -198,7 +198,7 @@ body
   background-color: #ffffff; /* Цвет фона */
   padding: 10px 10px; /* Внутренние отступы */
   display: flex; /* Гибкий контейнер */
-  justify-content:space-between; /* Распределение элементов: слева логотип, справа меню */
+  justify-content: space-between; /* Распределение элементов: слева логотип, справа меню */
   align-items: center; /* Центрирование элементов по вертикали */
   width: 100%; /* Занимает всю ширину страницы */
   position: fixed; /* Фиксируем навигацию сверху */
@@ -223,24 +223,22 @@ body
 .nav-list li 
 {
   font-size: 1.4rem;
+  padding: 10px 15px; /* Добавляем отступы */
+  border-radius: 33px; /* Скругляем края */
+  font-weight: bold; /* Жирный шрифт */
+  transition: all 0.3s ease; /* Анимация */
+  cursor: default; /* Убираем указатель */
 }
 
-.nav-list a 
+.nav-list li.active 
 {
-  text-decoration: none; /* Убираем подчеркивание */
-  color: #373745;
-  font-weight: bold; /* Чтобы текст выглядел выразительнее */
-  padding: 10px 10px; /* Добавляем отступы для визуальной читаемости */
-  display: inline-block; /* Позволяет обернуть текст в "кнопку" */
-  transition: all 0.3s ease; /* Плавный переход всех эффектов */
-  border-radius: 33px; /* Делаем текст кругом при наведении */
-}
-
-.nav-list a:hover 
-{
-  background-color: #60C2AA; 
+  background-color: #60C2AA; /* Зелёный фон для активного элемента */
   color: white; /* Белый цвет текста */
-  border: none;
+}
+
+.nav-list li:not(.active) 
+{
+  color: #373745; /* Цвет текста для неактивных элементов */
 }
 
 .logo 
@@ -285,11 +283,94 @@ body
   padding: 10px 20px;
   font-size: 1.2rem;
   color: white;
-  background-color: #60C2AA; /* Цвет кнопки */
+  background-color: #60C2AA;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.2s ease;
+  margin-top: 15px;
+}
+
+.tint 
+{
+  color: #373745; /* Цвет текста */
+  margin: 20px 0 0; /* Отступ сверху и обнуление боковых отступов */
+  text-align: center; /* Центрирование текста */
+  font-size: 1rem; /* Уменьшенный шрифт для подсказки */
+}
+
+.player-info-container 
+{
+  position: absolute; /* Для закрепления в определённой части экрана */
+  top: 130px; /* Отступ сверху */
+  left: 20px; /* Отступ слева */
+  width: 200px; /* Фиксированная ширина блока */
+  background-color: #ffffff; /* Белый фон */
+  border: 1px solid #ddd; /* Лёгкая рамка */
+  border-radius: 10px; /* Закруглённые углы */
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Тень */
+  padding: 15px; /* Внутренние отступы */
+}
+
+.player-info p 
+{
+  margin: 10px 0; /* Отступы между строками */
+  font-size: 16px; /* Размер текста */
+  display: flex; /* Используем flex для удобного выравнивания */
+  align-items: center;
+}
+
+.player-symbol 
+{
+  display: inline-block; /* Делает символ inline */
+  width: 20px; /* Фиксированная ширина */
+  height: 20px; /* Фиксированная высота */
+  margin-right: 10px; /* Отступ справа от текста */
+  border-radius: 50%; /* Делает символ кругом */
+  text-align: center; /* Центрирует текст внутри символа */
+  line-height: 20px; /* Центровка текста по вертикали */
+  font-weight: bold; /* Жирный шрифт */
+}
+
+.player-o 
+{
+  background-color: #ff6f61; /* Цвет для "O" */
+  color: #ffffff; /* Белый текст */
+}
+
+.player-x {
+  background-color: #4CAF50; /* Цвет для "X" */
+  color: #ffffff; /* Белый текст */
+}
+
+.exitgame
+{
+  background-image: url('./assets/Exit.png'); /* Укажите путь к вашему изображению */
+  background-size: contain; /* Убедитесь, что изображение сохраняет свои пропорции */
+  background-repeat: no-repeat; /* Избегаем повторения */
+  background-position: center; /* Центрируем изображение */
+  height: 30px; /* Задайте высоту логотипа */
+  width: 20px; /* Задайте ширину логотипа */
+  margin-right: 20px; /* Добавьте отступ от остальных элементов */
+  cursor: pointer;
+  border: none;
+}
+
+.styled-input 
+{
+  width: 50%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 16px;
+  margin-top: 5px;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.styled-input:focus 
+{
+  border-color: #60C2AA;
+  outline: none;
 }
 
 @media (max-width: 768px) 

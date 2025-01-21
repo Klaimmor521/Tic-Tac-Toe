@@ -14,7 +14,7 @@ function WinnerModal({ winner, isDraw, onNewGame })
         ) : (
           <>
             <div className="modal-trophy"/>
-            <h2>{winner} победил!</h2>
+            <h2>{winner} победил(ла)!</h2>
           </>
         )}
         <div className="modal-buttons">

@@ -10,6 +10,10 @@ function GameBoard({ resetTrigger, currentPlayer, updateCurrentPlayer })
   const [isDraw, setIsDraw] = useState(false);
   const [winningLine, setWinningLine] = useState([]);
 
+  const playerOName = localStorage.getItem('playerO') || 'Игрок O';
+  const playerXName = localStorage.getItem('playerX') || 'Игрок X';
+  const winnerName = winner === 'O' ? playerOName : winner === 'X' ? playerXName : null;
+
   const handleClick = (index) => {
     if (board[index] || winner || isDraw) return;
 
@@ -79,7 +83,7 @@ function GameBoard({ resetTrigger, currentPlayer, updateCurrentPlayer })
       </div>
       {/* Модальное окно при завершении игры */}
       <WinnerModal
-        winner={winner}
+        winner={winnerName}
         isDraw={isDraw}
         onClose={() => {
           setWinner(null);

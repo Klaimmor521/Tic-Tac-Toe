@@ -1,12 +1,12 @@
-function Header({ currentPlayer }) 
+function Header({ currentPlayer, currentPlayerName }) 
 {
     return (
-    <header className="header">
+      <header className="header">
         <p className="current-player">
-            Ходит <span className={'player ${currentPlayer}'}>&nbsp;{currentPlayer} </span>
+          Ходит&nbsp;<span className={`player ${currentPlayer}`}>{currentPlayerName} ({currentPlayer})</span>
         </p>
-    </header>
+      </header>
     );
-}
-
+  }
+  
 export default Header;
