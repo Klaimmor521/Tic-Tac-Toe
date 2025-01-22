@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 
 function Navigation() 
 {
-  const location = useLocation(); // Определяем текущий путь
+  const location = useLocation();
 
   return (
     <nav className="navigation">

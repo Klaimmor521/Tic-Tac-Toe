@@ -9,9 +9,15 @@ function WinnerModal({ winner, isDraw, onNewGame })
   return (
     <div className="modal-overlay">
       <div className="modal">
-        {isDraw ? (
-          <h2>Ничья!</h2>
-        ) : (
+        {
+          isDraw ? 
+          (
+            <>
+            <div className="handshake"/>
+            <h2>Ничья!</h2>
+            </>
+          ) : 
+        (
           <>
             <div className="modal-trophy"/>
             <h2>{winner} победил(ла)!</h2>

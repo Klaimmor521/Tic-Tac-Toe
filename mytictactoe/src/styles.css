@@ -1,6 +1,8 @@
 body 
 {
   font-family: "Roboto", serif;
+  
+  max-width: 100vw; /* Убедитесь, что ширина не превышает окно браузера */
 }
 
 .container
@@ -22,7 +24,7 @@ body
   margin-bottom: 20px;
 }
 
-.board 
+.board
 {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -44,21 +46,25 @@ body
   padding: 15px;
   border: none;
   top: 60px;
+  border-radius: 10px;
 }
 
-.current-player
+.current-player 
 {
   background-color: #373745;
   border-radius: 12px;
-  width: 300px;
+  min-width: 300px; /* Минимальная ширина */
   height: 48px;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 2rem;
+  font-size: 1.5rem;
   color: #ffffff;
   position: relative;
   margin-top: 20px;
+  padding: 0 20px; /* Отступы внутри контейнера */
+  white-space: nowrap; /* Предотвращает перенос текста */
+  overflow: hidden; /* Прячем излишки */
 }
 
 .cell 
@@ -116,8 +122,8 @@ body
   border-radius: 10px;
   padding: 20px;
   text-align: center;
-  width: 300px; /* Увеличенная ширина */
-  height: 400px; /* Автоматическая высота, чтобы не обрезать контент */
+  min-width: 300px;
+  min-height: 400px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   display: flex;
   flex-direction: column;
@@ -129,6 +135,20 @@ body
 .modal-trophy 
 {
   background-image: url('./assets/trophy.png');
+  background-size: contain; /* Убедимся, что картинка не обрезается */
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 200px; /* Увеличена пропорционально размеру модального окна */
+  height: 200px; /* Обязательно задать высоту */
+  margin: 0; /* Убираем все внешние отступы */
+  padding: 0; /* Убираем внутренние отступы */
+  border: none; /* Убираем любые рамки */
+  outline: none; /* Убираем выделение, если есть */
+}
+
+.handshake
+{
+  background-image: url('./assets/handshake.png');
   background-size: contain; /* Убедимся, что картинка не обрезается */
   background-repeat: no-repeat;
   background-position: center;
@@ -206,6 +226,9 @@ body
   left: 0; /* Привязываем к левому краю */
   z-index: 1000; /* Навигация поверх других элементов */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Добавляем тень */
+  height: 45px;
+  border: none;
+  border-radius: 15px;
 }
 
 .nav-list 
@@ -222,9 +245,9 @@ body
 
 .nav-list li 
 {
-  font-size: 1.4rem;
+  font-size: 1.2rem;
   padding: 10px 15px; /* Добавляем отступы */
-  border-radius: 33px; /* Скругляем края */
+  border-radius: 55px; /* Скругляем края */
   font-weight: bold; /* Жирный шрифт */
   transition: all 0.3s ease; /* Анимация */
   cursor: default; /* Убираем указатель */
@@ -250,6 +273,7 @@ body
   height: 60px; /* Задайте высоту логотипа */
   width: 80px; /* Задайте ширину логотипа */
   margin-right: 20px; /* Добавьте отступ от остальных элементов */
+  left: 0; /*привязка к левому краю*/
 }
 
 .menu 
@@ -297,80 +321,140 @@ body
   margin: 20px 0 0; /* Отступ сверху и обнуление боковых отступов */
   text-align: center; /* Центрирование текста */
   font-size: 1rem; /* Уменьшенный шрифт для подсказки */
+  font-weight:bold;
 }
 
 .player-info-container 
 {
   position: absolute; /* Для закрепления в определённой части экрана */
-  top: 130px; /* Отступ сверху */
-  left: 20px; /* Отступ слева */
-  width: 200px; /* Фиксированная ширина блока */
+  top: 140px; /* Отступ сверху */
+  left: 30px; /* Отступ слева */
+  min-width: 250px; /* Минимальная ширина */
   background-color: #ffffff; /* Белый фон */
-  border: 1px solid #ddd; /* Лёгкая рамка */
+  border: none;
   border-radius: 10px; /* Закруглённые углы */
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Тень */
   padding: 15px; /* Внутренние отступы */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.player-info-title 
+{
+  font-weight: bold; /* Жирный шрифт */
+  margin-bottom: 40px; /* Отступ снизу */
+  color: #373745; /* Цвет текста */
+  margin: 0;
+}
+
+.player-info 
+{
+  flex-grow: 1; /* Занимает оставшееся пространство */
+  display: flex; /* Flex для списка игроков */
+  flex-direction: column; /* Располагаем по вертикали */
+  justify-content: center; /* Центрируем содержимое */
 }
 
 .player-info p 
 {
-  margin: 10px 0; /* Отступы между строками */
+  margin: 0; /* Убираем внешние отступы */
   font-size: 16px; /* Размер текста */
-  display: flex; /* Используем flex для удобного выравнивания */
+  display: flex; /* Используем flex для выравнивания */
   align-items: center;
-}
-
-.player-symbol 
-{
-  display: inline-block; /* Делает символ inline */
-  width: 20px; /* Фиксированная ширина */
-  height: 20px; /* Фиксированная высота */
-  margin-right: 10px; /* Отступ справа от текста */
-  border-radius: 50%; /* Делает символ кругом */
-  text-align: center; /* Центрирует текст внутри символа */
-  line-height: 20px; /* Центровка текста по вертикали */
-  font-weight: bold; /* Жирный шрифт */
 }
 
 .player-o 
 {
-  background-color: #ff6f61; /* Цвет для "O" */
-  color: #ffffff; /* Белый текст */
-}
-
-.player-x {
-  background-color: #4CAF50; /* Цвет для "X" */
-  color: #ffffff; /* Белый текст */
-}
-
-.exitgame
-{
-  background-image: url('./assets/Exit.png'); /* Укажите путь к вашему изображению */
-  background-size: contain; /* Убедитесь, что изображение сохраняет свои пропорции */
+  background-image: url('./assets/littleO.png'); /* Указываем изображение */ 
+  background-size: contain; /* Изображение сохраняет свои пропорции */
   background-repeat: no-repeat; /* Избегаем повторения */
   background-position: center; /* Центрируем изображение */
-  height: 30px; /* Задайте высоту логотипа */
-  width: 20px; /* Задайте ширину логотипа */
-  margin-right: 20px; /* Добавьте отступ от остальных элементов */
-  cursor: pointer;
-  border: none;
+  height: 45px; /* Высота элемента */
+  width: 25px; /* Ширина элемента */
+  border: none; /* Убираем границы */
+  outline: none; /* Убираем стандартную обводку браузера */
+  margin-right: 7px;
+}
+
+.player-x 
+{
+  background-image: url('./assets/littleX.png'); /* Указываем изображение */
+  background-size: contain; /* Изображение сохраняет свои пропорции */
+  background-repeat: no-repeat; /* Избегаем повторения */
+  background-position: center; /* Центрируем изображение */
+  height: 41px; /* Высота элемента */
+  width: 21px; /* Ширина элемента */
+  border: none; /* Убираем границы */
+  outline: none; /* Убираем стандартную обводку браузера */
+  margin-right: 10px;
+}
+
+.player-symbol-img 
+{
+  height: 25px;
+  width: 25px;
+  object-fit: contain; /* Сохраняет пропорции */
+  margin-right: 7px; /* Отступ от имени игрока */
+}
+
+.player-container
+{
+  display: flex; /* Включаем flexbox */
+  align-items: center; /* Выравнивание по вертикали */
+  justify-content: center; /* Выравнивание по горизонтали */
+}
+
+.exitgame 
+{
+  background-color: transparent; /* Убираем любой фоновый цвет */
+  background-image: url('./assets/exit.png'); /* Указываем изображение */
+  background-repeat: no-repeat; /* Избегаем повторения */
+  background-position: center; /* Центрируем изображение */
+  height: 50px; /* Высота элемента */
+  width: 30px; /* Ширина элемента */
+  margin-right: 20px; /* Отступ справа */
+  cursor: pointer; /* Курсор при наведении */
+  border: none; /* Убираем границы */
+  outline: none; /* Убираем стандартную обводку браузера */
+}
+
+.input-group 
+{
+  display: flex;
+  flex-direction: column; /* Размещаем метку и поле ввода в столбик */
+  margin-bottom: 20px; /* Отступ между группами */
+  align-items: center;
+}
+
+.label-text 
+{
+  font-size: 1rem; /* Размер текста */
+  color: #373745; /* Цвет текста */
+  font-weight: bold; /* Жирный текст */
+  margin-bottom: 5px; /* Отступ от текста до поля ввода */
 }
 
 .styled-input 
 {
-  width: 50%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  font-size: 16px;
-  margin-top: 5px;
-  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+  border: 1px solid #DCDCDF; /* Серый контур */
+  border-radius: 10px; /* Закругленные углы */
+  padding: 10px; /* Внутренние отступы */
+  font-size: 1rem; /* Размер текста */
+  width: 60%; /* Поле растягивается на всю ширину контейнера */
 }
 
 .styled-input:focus 
 {
-  border-color: #60C2AA;
-  outline: none;
+  border-color: #60C2AA; /* Цвет обводки при фокусе */
+  outline: none; /* Убираем стандартную обводку браузера */
+}
+
+.error-message 
+{
+  color: red;
+  font-size: 14px;
+  margin-top: 10px;
 }
 
 @media (max-width: 768px) 
