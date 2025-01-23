@@ -1,5 +1,5 @@
-import littleO from "../assets/littleO.png";
-import littleX from "../assets/littleX.png";
+import littleO from "../assets/littleO.svg";
+import littleX from "../assets/littleX.svg";
 
 function Header({ currentPlayer, currentPlayerName }) {
   const symbol = currentPlayer === 'O' ? littleO : littleX;

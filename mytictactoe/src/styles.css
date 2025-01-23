@@ -1,8 +1,8 @@
 body 
 {
   font-family: "Roboto", serif;
-  
-  max-width: 100vw; /* Убедитесь, что ширина не превышает окно браузера */
+  overflow: hidden;
+  margin: 0; /* Убираем отступы у body */
 }
 
 .container
@@ -11,8 +11,8 @@ body
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  padding-top: 20px;
   min-height: 100vh;
+  width: 100%;
   background-color: #F6F6F6;
   gap: 20px;
   position: static;
@@ -47,6 +47,7 @@ body
   border: none;
   top: 60px;
   border-radius: 10px;
+  font-weight:bold;
 }
 
 .current-player 
@@ -84,7 +85,7 @@ body
 
 .cell.circle 
 {
-  background-image: url('./assets/zero.png');
+  background-image: url('./assets/zero.svg');
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
@@ -93,7 +94,7 @@ body
 
 .cell.cross 
 {
-  background-image: url('./assets/cross.png');
+  background-image: url('./assets/cross.svg');
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
@@ -134,7 +135,7 @@ body
 /* Картинка трофея */
 .modal-trophy 
 {
-  background-image: url('./assets/trophy.png');
+  background-image: url('./assets/trophy.svg');
   background-size: contain; /* Убедимся, что картинка не обрезается */
   background-repeat: no-repeat;
   background-position: center;
@@ -266,7 +267,7 @@ body
 
 .logo 
 {
-  background-image: url('./assets/logo.png'); /* Укажите путь к вашему изображению */
+  background-image: url('./assets/logo.svg'); /* Укажите путь к вашему изображению */
   background-size: contain; /* Убедитесь, что изображение сохраняет свои пропорции */
   background-repeat: no-repeat; /* Избегаем повторения */
   background-position: center; /* Центрируем изображение */
@@ -359,14 +360,14 @@ body
 .player-info p 
 {
   margin: 0; /* Убираем внешние отступы */
-  font-size: 16px; /* Размер текста */
+  font-size: 15px; /* Размер текста */
   display: flex; /* Используем flex для выравнивания */
   align-items: center;
 }
 
 .player-o 
 {
-  background-image: url('./assets/littleO.png'); /* Указываем изображение */ 
+  background-image: url('./assets/littleO.svg'); /* Указываем изображение */ 
   background-size: contain; /* Изображение сохраняет свои пропорции */
   background-repeat: no-repeat; /* Избегаем повторения */
   background-position: center; /* Центрируем изображение */
@@ -379,15 +380,16 @@ body
 
 .player-x 
 {
-  background-image: url('./assets/littleX.png'); /* Указываем изображение */
+  background-image: url('./assets/littleX.svg'); /* Указываем изображение */
   background-size: contain; /* Изображение сохраняет свои пропорции */
   background-repeat: no-repeat; /* Избегаем повторения */
   background-position: center; /* Центрируем изображение */
-  height: 41px; /* Высота элемента */
-  width: 21px; /* Ширина элемента */
+  height: 45px; /* Высота элемента */
+  width: 25px; /* Ширина элемента */
   border: none; /* Убираем границы */
   outline: none; /* Убираем стандартную обводку браузера */
-  margin-right: 10px;
+  margin-right: 7px;
+  image-rendering: crisp-edges;
 }
 
 .player-symbol-img 
@@ -408,7 +410,7 @@ body
 .exitgame 
 {
   background-color: transparent; /* Убираем любой фоновый цвет */
-  background-image: url('./assets/exit.png'); /* Указываем изображение */
+  background-image: url('./assets/exit.svg'); /* Указываем изображение */
   background-repeat: no-repeat; /* Избегаем повторения */
   background-position: center; /* Центрируем изображение */
   height: 50px; /* Высота элемента */
@@ -457,13 +459,15 @@ body
   margin-top: 10px;
 }
 
-@media (max-width: 768px) 
+@media (max-width: 768px)
 {
   .board 
   {
     grid-template-columns: repeat(3, 1fr); /* Сетка поля */
     margin: 0 auto; /* Центруем */
-    margin-top: 25px;
+    margin-top: 180px;
+    width: 100%; /* Делаем поле адаптивным */
+    max-width: 360px; /* Ограничиваем ширину */
   }
 
   .cell 
@@ -472,10 +476,44 @@ body
     height: 120px;
   }
 
+  .timer 
+  {
+    top: 200px; /* Опускаем таймер чуть ниже блока игроков */
+  }
+
   .navigation 
   {
-    flex-direction: column; /* Навигация в колонку */
+    justify-content: space-between; /* Лого и меню с краёв */
     padding: 10px;
+    height: auto; /* Уменьшаем высоту */
+    height: 35px;
+  }
+
+  .logo 
+  {
+    height: 40px; /* Уменьшаем размер лого */
+    width: 60px;
+  }
+
+  .nav-list 
+  {
+    display: none; /* Скрываем остальные кнопки */
+  }
+
+  .player-info-container 
+  {
+    position: absolute;
+    top: 80px; /* Поднимаем блок вверх */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%; /* Устанавливаем адаптивную ширину */
+    max-width: 300px; /* Ограничиваем максимальную ширину */
+    min-height: 50px; /* Уменьшаем высоту */
+    padding: 10px; /* Уменьшаем отступы */
+    font-size: 1rem; /* Снижаем размер шрифта */
+    background-color: rgba(255, 255, 255, 0.9); /* Легкий фон для читаемости */
+    border-radius: 10px; /* Добавляем закругление */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Легкая тень */
   }
 
   .start-button 
@@ -486,7 +524,7 @@ body
 
   .cell.circle 
   {
-    background-image: url('./assets/zero.png');
+    background-image: url('./assets/zero.svg');
     background-size: cover;
     background-position: center;
     background-size: 100px;
@@ -495,7 +533,7 @@ body
 
   .cell.cross 
   {
-    background-image: url('./assets/cross.png');
+    background-image: url('./assets/cross.svg');
     background-size: cover;
     background-position: center;
     background-size: 103px;

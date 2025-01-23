@@ -7,11 +7,11 @@ function PlayerInfo({ playerOName, playerXName }) {
       <div className="player-info">
         <p>
           <span className="player-symbol player-o"></span>
-          <strong>{playerOName}</strong>
+          {playerOName}
         </p>
         <p>
           <span className="player-symbol player-x"></span>
-          <strong>{playerXName}</strong>
+          {playerXName}
         </p>
       </div>
     </div>
