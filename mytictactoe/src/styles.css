@@ -1,8 +1,7 @@
 body 
 {
   font-family: "Roboto", serif;
-  overflow: hidden;
-  margin: 0; /* Убираем отступы у body */
+  margin: 0;
 }
 
 .container

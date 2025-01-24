@@ -2,36 +2,98 @@ import React, { useState, useEffect } from 'react';
 import WinnerModal from './WinnerModal';
 import Timer from './Timer';
 
-function GameBoard({ resetTrigger, currentPlayer, updateCurrentPlayer }) 
-{
+function GameBoard({ resetTrigger, currentPlayer, updateCurrentPlayer }) {
   const [board, setBoard] = useState(Array(9).fill(null));
   const [isGameOver, setIsGameOver] = useState(false);
   const [winner, setWinner] = useState(null);
   const [isDraw, setIsDraw] = useState(false);
   const [winningLine, setWinningLine] = useState([]);
+  const [ws, setWs] = useState(null);
+  const [playerRole, setPlayerRole] = useState(null);
 
   const playerOName = localStorage.getItem('playerO') || 'Игрок O';
   const playerXName = localStorage.getItem('playerX') || 'Игрок X';
   const winnerName = winner === 'O' ? playerOName : winner === 'X' ? playerXName : null;
 
+  useEffect(() => {
+    const socket = new WebSocket('ws://localhost:8080');
+
+    socket.onopen = () => {
+      console.log('WebSocket подключен');
+    };
+
+    socket.onmessage = (event) => {
+      const data = JSON.parse(event.data);
+
+      if (data.type === 'role') {
+        console.log(`Вам назначена роль: ${data.role}`);
+        setPlayerRole(data.role);
+      } else if (data.type === 'move') {
+        handleIncomingMove(data);
+      } else if (data.type === 'currentPlayer') {
+        updateCurrentPlayer(data.currentPlayer);
+      }
+    };
+
+    socket.onerror = (error) => {
+      console.error('Ошибка WebSocket:', error);
+    };
+
+    socket.onclose = () => {
+      console.warn('WebSocket отключён');
+    };
+
+    setWs(socket);
+
+    return () => {
+      socket.close();
+    };
+  }, [updateCurrentPlayer]);
+
+  const handleIncomingMove = (data) => {
+    const { cellIndex, symbol, nextPlayer } = data;
+
+    setBoard((prevBoard) => {
+      const newBoard = [...prevBoard];
+      newBoard[cellIndex] = symbol;
+      return newBoard;
+    });
+
+    // Обновляем текущего игрока
+    if (nextPlayer) 
+    {
+      updateCurrentPlayer(nextPlayer);
+    }
+
+    setBoard((newBoard) => {
+      const calculatedWinner = calculateWinner(newBoard);
+      if (calculatedWinner) {
+        setWinner(calculatedWinner.player);
+        setWinningLine(calculatedWinner.line);
+        setIsGameOver(true);
+      } else if (newBoard.every((cell) => cell !== null)) {
+        setIsDraw(true);
+        setIsGameOver(true);
+      }
+      return newBoard;
+    });
+  };
+
+  const sendMove = (cellIndex) => {
+    if (ws && ws.readyState === WebSocket.OPEN) {
+      ws.send(JSON.stringify({ type: 'move', cellIndex, symbol: playerRole }));
+    }
+  };
+
   const handleClick = (index) => {
     if (board[index] || winner || isDraw) return;
 
-    const newBoard = [...board];
-    newBoard[index] = currentPlayer;
-    setBoard(newBoard);
-
-    const calculatedWinner = calculateWinner(newBoard);
-    if (calculatedWinner) {
-      setWinner(calculatedWinner.player);
-      setWinningLine(calculatedWinner.line);
-      setIsGameOver(true); // Завершение игры
-    } else if (newBoard.every((cell) => cell !== null)) {
-      setIsDraw(true);
-      setIsGameOver(true); // Завершение игры
-    } else {
-      updateCurrentPlayer(currentPlayer === 'O' ? 'X' : 'O');
+    if (playerRole !== currentPlayer) {
+      console.log(`Сейчас ходит другой игрок: ${currentPlayer}`);
+      return;
     }
+
+    sendMove(index);
   };
 
   const calculateWinner = (squares) => {
@@ -50,24 +112,21 @@ function GameBoard({ resetTrigger, currentPlayer, updateCurrentPlayer })
   };
 
   const resetGame = () => {
-    setBoard(Array(9).fill(null)); // Сбрасываем игровое поле
-    setWinner(null); // Сбрасываем победителя
-    setIsGameOver(false); // Сбрасываем состояние завершения игры
-    setIsDraw(false); // Сбрасываем ничью
-    setWinningLine([]); // Сбрасываем победную линию
-    updateCurrentPlayer('O'); // Устанавливаем первого игрока
+    setBoard(Array(9).fill(null));
+    setWinner(null);
+    setIsGameOver(false);
+    setIsDraw(false);
+    setWinningLine([]);
+    updateCurrentPlayer('O');
   };
 
   useEffect(() => {
-    resetGame(); // Сброс при срабатывании внешнего триггера
+    resetGame();
   }, [resetTrigger]);
 
   return (
     <>
-      {/* Таймер */}
       <Timer reset={resetTrigger} isGameOver={isGameOver} />
-
-      {/* Игровое поле */}
       <div className="board">
         {board.map((value, index) => (
           <button
@@ -81,7 +140,6 @@ function GameBoard({ resetTrigger, currentPlayer, updateCurrentPlayer })
           </button>
         ))}
       </div>
-      {/* Модальное окно при завершении игры */}
       <WinnerModal
         winner={winnerName}
         isDraw={isDraw}
