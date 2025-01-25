@@ -18,20 +18,35 @@ server.on('connection', (ws) => {
   }
 
   ws.on('message', (message) => {
-    const data = JSON.parse(message);
-    clients.forEach((client) => {
-      if (client.readyState === WebSocket.OPEN) {
-        client.send(JSON.stringify(data));
+    try {
+      const data = JSON.parse(message);
+
+      if (data.type === 'move' && typeof data.cellIndex === 'number' && ['X', 'O'].includes(data.symbol)) {
+        console.log(`Ход игрока: ${data.symbol}, ячейка: ${data.cellIndex}`);
+        clients.forEach((client) => {
+          if (client.readyState === WebSocket.OPEN) {
+            client.send(JSON.stringify({ ...data, nextPlayer: data.symbol === 'X' ? 'O' : 'X' }));
+          }
+        });
+      } else {
+        console.log('Получены некорректные данные:', data);
       }
-    });
+    } catch (err) {
+      console.error('Ошибка обработки сообщения:', err);
+    }
   });
 
   ws.on('close', () => {
     const index = clients.indexOf(ws);
     if (index !== -1) {
       console.log(`Игрок с ролью ${roles[index]} отключился.`);
-      clients.splice(index, 1);
+      clients.splice(index, 1); // Удаляем клиента из списка
     }
+    console.log('Текущие клиенты:', clients.length);
+  });
+
+  ws.on('error', (err) => {
+    console.error('Ошибка на стороне WebSocket:', err);
   });
 });
 
