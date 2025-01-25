@@ -16,7 +16,7 @@ function GameBoard({ resetTrigger, currentPlayer, updateCurrentPlayer }) {
   const winnerName = winner === 'O' ? playerOName : winner === 'X' ? playerXName : null;
 
   useEffect(() => {
-    const socket = new WebSocket('ws://localhost:8080');
+    const socket = new WebSocket("wss://tic-tac-toe-backend-pncr.onrender.com");
 
     socket.onopen = () => {
       console.log('WebSocket подключен');
@@ -24,6 +24,7 @@ function GameBoard({ resetTrigger, currentPlayer, updateCurrentPlayer }) {
 
     socket.onmessage = (event) => {
       const data = JSON.parse(event.data);
+      console.log('Получено сообщение от сервера:', data);
 
       if (data.type === 'role') {
         console.log(`Вам назначена роль: ${data.role}`);
