@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/Tic-Tac-Toe/static/css/main.1e31a11e.css",
-    "main.js": "/Tic-Tac-Toe/static/js/main.fad282e6.js",
+    "main.js": "/Tic-Tac-Toe/static/js/main.b2c51f51.js",
     "static/media/trophy.svg": "/Tic-Tac-Toe/static/media/trophy.0e5233dd02dab19a00aa.svg",
     "static/media/handshake.png": "/Tic-Tac-Toe/static/media/handshake.a28c2b76254550f860f5.png",
     "static/media/cross.svg": "/Tic-Tac-Toe/static/media/cross.8ed0fead357e9f6d57a2.svg",
@@ -12,10 +12,10 @@
     "static/media/exit.svg": "/Tic-Tac-Toe/static/media/exit.160ad6c6bb3ce0f80613.svg",
     "static/media/littleO.svg": "/Tic-Tac-Toe/static/media/littleO.e0452ee45e7181e3c8176a5955a47041.svg",
     "main.1e31a11e.css.map": "/Tic-Tac-Toe/static/css/main.1e31a11e.css.map",
-    "main.fad282e6.js.map": "/Tic-Tac-Toe/static/js/main.fad282e6.js.map"
+    "main.b2c51f51.js.map": "/Tic-Tac-Toe/static/js/main.b2c51f51.js.map"
   },
   "entrypoints": [
     "static/css/main.1e31a11e.css",
-    "static/js/main.fad282e6.js"
+    "static/js/main.b2c51f51.js"
   ]
 }
