@@ -1,6 +1,7 @@
 const WebSocket = require('ws');
 
-const server = new WebSocket.Server({ port: 8080 });
+const PORT = process.env.PORT || 8080;
+const server = new WebSocket.Server({ port: PORT });
 const clients = [];
 const roles = ['X', 'O'];
 
@@ -18,18 +19,11 @@ server.on('connection', (ws) => {
 
   ws.on('message', (message) => {
     const data = JSON.parse(message);
-
-    // Если это ход, добавляем информацию о следующем игроке
-    if (data.type === 'move') {
-      const nextPlayer = data.symbol === 'X' ? 'O' : 'X';
-      data.nextPlayer = nextPlayer;
-
-      clients.forEach((client) => {
-        if (client.readyState === WebSocket.OPEN) {
-          client.send(JSON.stringify(data));
-        }
-      });
-    }
+    clients.forEach((client) => {
+      if (client.readyState === WebSocket.OPEN) {
+        client.send(JSON.stringify(data));
+      }
+    });
   });
 
   ws.on('close', () => {
@@ -41,4 +35,4 @@ server.on('connection', (ws) => {
   });
 });
 
-console.log('WebSocket сервер запущен на порту 8080');
+console.log(`WebSocket сервер запущен на порту ${PORT}`);
