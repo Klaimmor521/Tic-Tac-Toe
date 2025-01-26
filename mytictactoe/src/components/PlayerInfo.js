@@ -15,7 +15,7 @@ function PlayerInfo({ playerOName, playerXName, playerRole }) {
         </p>
         <p>
           <span className="player-role"></span>
-          Ваша роль: {playerRole ? playerRole : "Назначается..."}
+          Ваша роль: {playerRole ? playerRole : "Назначается роль..."}
         </p>
       </div>
     </div>
