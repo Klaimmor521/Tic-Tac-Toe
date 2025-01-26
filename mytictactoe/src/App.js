@@ -26,6 +26,7 @@ function Game()
 {
   const [currentPlayer, setCurrentPlayer] = React.useState('O'); // Текущий игрок
   const [reset] = React.useState(false); // Переключатель для сброса игры
+  const [playerRole, setPlayerRole] = React.useState(null); // Роль игрока
 
   // Забираем имена игроков из localStorage
   const playerOName = localStorage.getItem('playerO') || 'Игрок O';
@@ -34,11 +35,12 @@ function Game()
 
   return (
     <>
-      <PlayerInfo playerOName={playerOName} playerXName={playerXName} />
+      <PlayerInfo playerOName={playerOName} playerXName={playerXName } playerRole={playerRole} />
       <GameBoard
         resetTrigger={reset}
         currentPlayer={currentPlayer}
         updateCurrentPlayer={setCurrentPlayer}
+        updatePlayerRole={setPlayerRole} // Передаём функцию для обновления роли
       />
       <Header currentPlayer={currentPlayer} currentPlayerName={currentPlayerName} />
     </>

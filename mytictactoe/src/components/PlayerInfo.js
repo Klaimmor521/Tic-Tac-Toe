@@ -1,6 +1,6 @@
 import React from 'react';
 
-function PlayerInfo({ playerOName, playerXName }) {
+function PlayerInfo({ playerOName, playerXName, playerRole }) {
   return (
     <div className="player-info-container">
       <h3 className="player-info-title">Игроки</h3>
@@ -12,6 +12,10 @@ function PlayerInfo({ playerOName, playerXName }) {
         <p>
           <span className="player-symbol player-x"></span>
           {playerXName}
+        </p>
+        <p>
+          <span className="player-role"></span>
+          Ваша роль: {playerRole ? playerRole : "Назначается..."}
         </p>
       </div>
     </div>

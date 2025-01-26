@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import WinnerModal from './WinnerModal';
 import Timer from './Timer';
 
-function GameBoard({ resetTrigger, currentPlayer, updateCurrentPlayer }) {
+function GameBoard({ resetTrigger, currentPlayer, updateCurrentPlayer, updatePlayerRole }) {
   const [board, setBoard] = useState(Array(9).fill(null));
   const [isGameOver, setIsGameOver] = useState(false);
   const [winner, setWinner] = useState(null);
@@ -28,6 +28,7 @@ function GameBoard({ resetTrigger, currentPlayer, updateCurrentPlayer }) {
       if (data.type === 'role') {
         console.log(`Вам назначена роль: ${data.role}`);
         setPlayerRole(data.role);
+        updatePlayerRole(data.role); // Передаём роль в Game
       } else if (data.type === 'move') {
         handleIncomingMove(data);
       } else if (data.type === 'currentPlayer') {
@@ -48,7 +49,7 @@ function GameBoard({ resetTrigger, currentPlayer, updateCurrentPlayer }) {
     return () => {
       socket.close();
     };
-  }, [updateCurrentPlayer]);
+  }, [updateCurrentPlayer, updatePlayerRole]);
 
   const handleIncomingMove = (data) => {
     const { cellIndex, symbol, nextPlayer } = data;
@@ -126,6 +127,7 @@ function GameBoard({ resetTrigger, currentPlayer, updateCurrentPlayer }) {
 
   return (
     <>
+      <p className="player-role">Ваша роль: {playerRole}</p>
       <Timer reset={resetTrigger} isGameOver={isGameOver} />
       <div className="board">
         {board.map((value, index) => (
